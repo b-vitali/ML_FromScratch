@@ -77,19 +77,17 @@ if __name__ == "__main__":
 
     # Plot the test set in gray
     test_points = ax.scatter(X_test[:, 0], X_test[:, 1], color='gray', label='Test Set', s=60, alpha=0.5)
+    plt.xlabel('Feature 1')
+    plt.ylabel('Feature 2')
+    plt.legend()
 
     # Animation function
     def update(frame):
         pred = predictions[frame]
         ax.scatter(X_test[frame, 0], X_test[frame, 1], color=colors[pred], marker='x', s=200)
-        ax.set_title(f'Frame {frame+1}: Predicted Class {pred}')
+        ax.set_title(f'KNN (k={k}): {frame+1} predicted as {pred}')
     
     ani = animation.FuncAnimation(fig, update, frames=len(predictions), interval=200, repeat=False)
-
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.title('KNN Classification Animation with Test Set Predictions')
-    plt.legend()
     plt.show()
 
     # Re-make the plot to save the GIF
