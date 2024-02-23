@@ -21,3 +21,4 @@ This implementation is quite basic, using the euclidean distance and no weights.
 * **KNN_fancyAnimation.py**
     * Same core functioning as KNN.py
     * Adds a silly animation of the decision process with `matplotlib.animation`
+    ![Alt Text](./knn_classification_animation.gif)

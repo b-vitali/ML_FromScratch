@@ -1,7 +1,7 @@
 import numpy as np
 from collections import Counter
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+import matplotlib.animation as animation 
 from matplotlib.colors import ListedColormap
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
@@ -54,13 +54,16 @@ if __name__ == "__main__":
 
     # X are the data and y the labels
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=954
+        X, y, test_size=0.2, random_state=999
     )
 
     k = 5
     clf = KNN(k=k)
     clf.fit(X_train, y_train)
     predictions = clf.predict(X_test)
+
+    # Print the results
+    print("KNN classification accuracy", accuracy(y_test, predictions))
 
     # Plotting the training set
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -73,16 +76,15 @@ if __name__ == "__main__":
         ax.scatter(X_train[y_train == i][:, 0], X_train[y_train == i][:, 1], color = colors[i],label=f'Class {i}', s=30)
 
     # Plot the test set in gray
-    test_points = ax.scatter(X_test[:, 0], X_test[:, 1], color='gray', label='Test Set', s=30, alpha=0.5)
+    test_points = ax.scatter(X_test[:, 0], X_test[:, 1], color='gray', label='Test Set', s=60, alpha=0.5)
 
     # Animation function
     def update(frame):
-        if frame < len(predictions):
-            pred = predictions[frame]
-            ax.scatter(X_test[frame, 0], X_test[frame, 1], color=colors[pred], marker='x', s=100)
-            ax.set_title(f'Frame {frame+1}: Predicted Class {pred}')
+        pred = predictions[frame]
+        ax.scatter(X_test[frame, 0], X_test[frame, 1], color=colors[pred], marker='x', s=200)
+        ax.set_title(f'Frame {frame+1}: Predicted Class {pred}')
     
-    ani = FuncAnimation(fig, update, frames=len(predictions), interval=200, repeat=False)
+    ani = animation.FuncAnimation(fig, update, frames=len(predictions), interval=200, repeat=False)
 
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
@@ -90,4 +92,17 @@ if __name__ == "__main__":
     plt.legend()
     plt.show()
 
-    print("KNN classification accuracy", accuracy(y_test, predictions))
+    # Re-make the plot to save the GIF
+    ax.clear()
+    # Plot each class in different colors
+    for i in range(len(np.unique(y_train))):
+        ax.scatter(X_train[y_train == i][:, 0], X_train[y_train == i][:, 1], color = colors[i],label=f'Class {i}', s=30)    
+    # Plot the test set in gray
+    test_points = ax.scatter(X_test[:, 0], X_test[:, 1], color='gray', label='Test Set', s=60, alpha=0.5)
+
+    # Set up writer
+    Writer = animation.writers['pillow']
+    writer = Writer(fps=10, metadata=dict(artist='Me'), bitrate=1800)
+
+    # Save the animation
+    ani.save('knn_classification_animation.gif', writer=writer)
