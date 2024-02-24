@@ -2,11 +2,11 @@
 ## Table of contents
 * [Introduction](#Introduction)
 * [KNN](#KNN)
-
+* [LinearRegression](#LinearRegression)
 ## Introduction
 This repo is a collection of simple projects I tackled to familiarize myself with ML algorithms.
 
-Most of these codes are insipred by [AssemblyAI videos](https://www.youtube.com/@AssemblyAI).
+Most of these codes are insipred by [AssemblyAI videos](https://www.youtube.com/watch?v=p1hGz0w_OCo&list=PLcWfeUsAys2k_xub3mHks85sBHZvg24Jd&pp=iAQB).
 
 ## KNN
 This is a simple [K Nearest Neighbours algorithm](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm).
@@ -22,3 +22,40 @@ This implementation is quite basic, using the euclidean distance and no weights.
     * Same core functioning as KNN.py
     * Adds a silly animation of the decision process with `matplotlib.animation`
     ![Alt Text](./knn_classification_animation.gif)
+
+## LinearRegression
+We assume a linear relation between variables and we try to [find this line](https://en.wikipedia.org/wiki/Linear_regression).
+
+$$y = wx+b$$
+
+\[
+\chi^2 = \sum_{i=1}^{n} \frac{(y_i - (wx_i + b))^2}{n}
+\]
+
+where \(y_i\) are the observed values, \(x_i\) are the independent variables, and \(n\) is the number of data points.
+
+The Jacobian matrix \(J\) for the derivatives with respect to \(w\) and \(b\) gives us how to change the parameters:
+
+\[
+J = \begin{bmatrix}
+\frac{\partial \chi^2}{\partial w} \\
+\frac{\partial \chi^2}{\partial b}
+\end{bmatrix} = 
+\begin{bmatrix}
+\sum_{i=1}^{n} \frac{-2x_i(y_i - (wx_i + b))}{n}\\
+\sum_{i=1}^{n} \frac{-2(y_i - (wx_i + b))}{n}
+\end{bmatrix} = 
+-\frac{2}{n}\begin{bmatrix}
+\sum_{i=1}^{n} x_i(\hat{y} - y_i)\\
+\sum_{i=1}^{n} (\hat{y} - y_i)
+\end{bmatrix}
+\]
+
+The whole thing is done in a matrices form
+
+* LinearRegression.py
+    * Initialize *weight w* and *bias b* to zero
+    * Repeat q.b. :
+        * Predict the result
+        * Evaluate the error
+        * Gradient descent
