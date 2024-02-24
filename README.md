@@ -28,15 +28,15 @@ We assume a linear relation between variables and we try to [find this line](htt
 
 $$y = wx+b$$
 
-\[
+$$
 \chi^2 = \sum_{i=1}^{n} \frac{(y_i - (wx_i + b))^2}{n}
-\]
+$$
 
-where \(y_i\) are the observed values, \(x_i\) are the independent variables, and \(n\) is the number of data points.
+where $y_i$ are the observed values, $x_i$ are the independent variables, and $n$ is the number of data points.
 
-The Jacobian matrix \(J\) for the derivatives with respect to \(w\) and \(b\) gives us how to change the parameters:
+The Jacobian matrix $J$ for the derivatives with respect to $w$ and $b$ gives us how to change the parameters:
 
-\[
+$$
 J = \begin{bmatrix}
 \frac{\partial \chi^2}{\partial w} \\
 \frac{\partial \chi^2}{\partial b}
@@ -49,7 +49,7 @@ J = \begin{bmatrix}
 \sum_{i=1}^{n} x_i(\hat{y} - y_i)\\
 \sum_{i=1}^{n} (\hat{y} - y_i)
 \end{bmatrix}
-\]
+$$
 
 The whole thing is done in a matrices form
 
