@@ -42,12 +42,12 @@ J = \begin{bmatrix}
 \frac{\partial \chi^2}{\partial b}
 \end{bmatrix} = 
 \begin{bmatrix}
-\sum_{i=1}^{n} \frac{-2x_i(y_i - (wx_i + b))}{n}\\
-\sum_{i=1}^{n} \frac{-2(y_i - (wx_i + b))}{n}
+\sum \frac{-2x_i(y_i - (wx_i + b))}{n}\\
+\sum \frac{-2(y_i - (wx_i + b))}{n}
 \end{bmatrix} = 
 -\frac{2}{n}\begin{bmatrix}
-\sum_{i=1}^{n} x_i(\hat{y} - y_i)\\
-\sum_{i=1}^{n} (\hat{y} - y_i)
+\sum x_i(\hat{y} - y_i)\\
+\sum (\hat{y} - y_i)
 \end{bmatrix}
 $$
 
