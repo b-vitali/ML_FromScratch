@@ -3,6 +3,7 @@
 * [Introduction](#Introduction)
 * [KNN](#KNN)
 * [LinearRegression](#LinearRegression)
+* [LogicRegression](#LogicRegression)
 ## Introduction
 This repo is a collection of simple projects I tackled to familiarize myself with ML algorithms.
 
@@ -54,8 +55,20 @@ $$
 The whole thing is done in a matrices form
 
 * LinearRegression.py
-    * Initialize *weight w* and *bias b* to zero
+    * Initialize *weight* $w$ and *bias* $b$ to zero
     * Repeat q.b. :
         * Predict the result
         * Evaluate the error
         * Gradient descent
+
+## LogicRegression
+We want to decide, based on features, in which of two classes the tests are.
+
+We take the linear regression and we convolute it with a **sigmoid**
+
+The result is an output between 0 and 1 with a `fast' transition
+
+Once we found the prediction for each test entry we just cut at 0.5
+
+    class_pred      = [0 if y<=0.5 else 1 for y in y_pred]
+

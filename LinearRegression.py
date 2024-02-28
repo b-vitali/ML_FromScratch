@@ -10,24 +10,24 @@ class LinearRegression:
         self.lr         = lr
         self.n_iter     = n_iter
         self.weights    = None
-        self.biase      = None
+        self.bias       = None
 
     def fit(self, X, y):
         n_samples, n_features = X.shape
         self.weights    = np.zeros(n_features)
-        self.biase      = 0
+        self.bias       = 0
         
         for _ in range(self.n_iter):
-            y_pred = np.dot(X, self.weights) + self.biase
+            y_pred = np.dot(X, self.weights) + self.bias
 
             dw = 1/n_samples * np.dot(X.T, (y_pred-y))
             db = 1/n_samples * np.sum(y_pred-y)
 
             self.weights = self.weights - self.lr * dw
-            self.biase = self.biase - self.lr * db
+            self.bias = self.bias - self.lr * db
 
     def predict(self, X):
-        y_pred = np.dot(X, self.weights) + self.biase
+        y_pred = np.dot(X, self.weights) + self.bias
         return y_pred
 
 if __name__ == "__main__":
@@ -47,9 +47,16 @@ if __name__ == "__main__":
     colors = plt.cm.tab10.colors
 
     y_pred_line = LR.predict(X)
-    cmap = plt.get_cmap('viridis')
+
+    # Plot the training and test data points
     fig = plt.figure(figsize=(8,6))
-    m1 = plt.scatter(X_train, y_train, color=colors[0], s=10)
-    m2 = plt.scatter(X_test, y_test, color=colors[1], s=10)
+    m1 = plt.scatter(X_train, y_train, color=colors[0], s=50, label='Train')
+    m2 = plt.scatter(X_test, y_test, color=colors[1], s=50, label='Test')
+
+    # Plot the regression line
     plt.plot(X, y_pred_line, color='black', linewidth=2, label='Prediction')
+
+    # Add title and legend
+    plt.title('Example of Linear Regression')
+    plt.legend()
     plt.show()
