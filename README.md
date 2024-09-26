@@ -61,6 +61,8 @@ The whole thing is done in a matrices form
         * Evaluate the error
         * Gradient descent
 
+![Alt Text](./LinearRegression.png)
+
 ## LogicRegression
 We want to decide, based on features, in which of two classes the tests are.
 
@@ -71,4 +73,6 @@ The result is an output between 0 and 1 with a `fast' transition
 Once we found the prediction for each test entry we just cut at 0.5
 
     class_pred      = [0 if y<=0.5 else 1 for y in y_pred]
+
+![Alt Text](./LogisticRegression.png)
 
