@@ -40,6 +40,7 @@ class KNN:
         k_nearest_labels = [self.y_train[i] for i in k_indices]
 
         # Majority vote
+        # EXAMPLE : Counter('abracadabra').most_common(3) -> [('a', 5), ('b', 2), ('r', 2)]
         most_common = Counter(k_nearest_labels).most_common()
         return most_common[0][0]
 

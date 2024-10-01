@@ -1,30 +1,35 @@
 # ML From Scratch
 ## Table of contents
 * [Introduction](#Introduction)
-* [KNN](#KNN)
-* [LinearRegression](#LinearRegression)
-* [LogicRegression](#LogicRegression)
+* [Supervised](#Supervised)
+    * [KNN](#KNN)
+    * [LinearRegression](#LinearRegression)
+    * [LogisticRegression](#LogisticRegression)
+    * [DecisionTree](#DecisionTree)
+
 ## Introduction
 This repo is a collection of simple projects I tackled to familiarize myself with ML algorithms.
 
 Most of these codes are insipred by [AssemblyAI videos](https://www.youtube.com/watch?v=p1hGz0w_OCo&list=PLcWfeUsAys2k_xub3mHks85sBHZvg24Jd&pp=iAQB).
 
-## KNN
+## Supervised
+
+### KNN
 This is a simple [K Nearest Neighbours algorithm](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm).
 There are two scripts, both running on [sklearn iris dataset](https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html).
 
 This implementation is quite basic, using the euclidean distance and no weights.
 
-* **KNN.py**
+* KNN.py
     * Defines a `euclidean_distance(x1,x2)`
     * For each x evaluates distances from the training 
     * Sorts and assigns on Majority vote of the first `k`
-* **KNN_fancyAnimation.py**
+* KNN_fancyAnimation.py
     * Same core functioning as KNN.py
     * Adds a silly animation of the decision process with `matplotlib.animation`
     ![Alt Text](./knn_classification_animation.gif)
 
-## LinearRegression
+### LinearRegression
 We assume a linear relation between variables and we try to [find this line](https://en.wikipedia.org/wiki/Linear_regression).
 
 $$y = wx+b$$
@@ -63,7 +68,7 @@ The whole thing is done in a matrices form
 
 ![Alt Text](./LinearRegression.png)
 
-## LogicRegression
+### LogisticRegression
 We want to decide, based on features, in which of two classes the tests are.
 
 We take the linear regression and we convolute it with a **sigmoid**
@@ -71,8 +76,61 @@ We take the linear regression and we convolute it with a **sigmoid**
 The result is an output between 0 and 1 with a `fast' transition
 
 Once we found the prediction for each test entry we just cut at 0.5
-
-    class_pred      = [0 if y<=0.5 else 1 for y in y_pred]
+` class_pred      = [0 if y<=0.5 else 1 for y in y_pred]`
 
 ![Alt Text](./LogisticRegression.png)
+
+### DecisionTree
+The idea is to split the sample by **feature** at a certain **threshold**, to group similar elements from the sample.
+
+To decide *how to spit* we need to find **how much information** we get for each possible **split**
+
+The **Information gained** for a split is given by
+
+$$
+IG = E(parent)-[weighted\ average]*E(children)
+$$
+
+where we introduced the **Entropy** as a measure of disorder
+
+$$
+E = -\sum p(X)-log_2(p(X))\\
+$$
+
+Stopping criteria could be the maximum depth reached, a minimum of $\Delta E$ or a limit on the number of elements.
+
+* DecisionTree.py (a bit caotic becaus of the helper functions)
+    * Node class:
+        * Initialization
+        * Check if it is a leaf
+    * DecisionTree class
+        * Initialization
+        * Fit calling helper functions:
+            * Grow the tree
+            * Where to split 
+            * How much Information Gain
+            * The actual split function
+            * ...
+        * Prediction
+
+This example is run on `data = datasets.load_breast_cancer()` with a max depth of 4 
+
+```
+.../ML_FromScratch$ python3 DecisionTree.py 
+Decision Tree accuracy 0.9298245614035088
+
+Tree structure:
+Feature 7 <= 0.05102
+|  Feature 20 <= 16.77
+|  |  Feature 13 <= 34.37
+|  |  |  Feature 21 <= 33.17
+|  |  |  |  Leaf: 1
+|  |  |  |  Leaf: 1
+|  |  |  Feature 18 <= 0.02418
+|  |  |  |  Leaf: 0
+|  |  |  |  Leaf: 1
+|  |  Feature 1 <= 19.46
+...
+```
+![Alt Text](./DecisionTree.png)
 
