@@ -76,7 +76,7 @@ We take the linear regression and we convolute it with a **sigmoid**
 The result is an output between 0 and 1 with a `fast' transition
 
 Once we found the prediction for each test entry we just cut at 0.5
-` class_pred      = [0 if y<=0.5 else 1 for y in y_pred]`
+` class_pred = [0 if y<=0.5 else 1 for y in y_pred]`
 
 ![Alt Text](./LogisticRegression.png)
 
@@ -112,6 +112,9 @@ Stopping criteria could be the maximum depth reached, a minimum of $\Delta E$ or
             * The actual split function
             * ...
         * Prediction
+    * Two function to visualize the tree
+        * `print_tree()` to have it on terminal
+        * `plot_tree()` to have a matplotlib plot
 
 This example is run on `data = datasets.load_breast_cancer()` with a max depth of 4 
 
