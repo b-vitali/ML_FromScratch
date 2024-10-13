@@ -137,3 +137,9 @@ Feature 7 <= 0.05102
 ```
 ![Alt Text](./DecisionTree.png)
 
+### RandomForest
+The idea is to split the dataset in random subsets.
+
+Each subset is passed to a DecisionTree and we store the results.
+
+When testing, we do a majority vote or we take the mean of the votes.
